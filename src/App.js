@@ -17,9 +17,12 @@ class App extends Component {
     }
   }
 
+  //-- For abort fetch--\
+
   abortController = new AbortController();
   controllerSignal = this.abortController.signal;
 
+  //---- return user coord.
   weatherInit = () => {
     const success = (position) => {
       this.setState({ status: 'fetching' });
@@ -40,6 +43,7 @@ class App extends Component {
     }
   }
 
+  //FIXME ---- incomplite part ----
   gettingWeatherCity = async e => {
     e.preventDefault();
     const city = e.target.elements.city.value;
@@ -58,6 +62,7 @@ class App extends Component {
     }
   };
 
+  // use OpenWeather API with coord
   getWeatherData = (lat, lon) => {
 
     const weatherApi = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${REACT_APP_WEATHER_KEY}`;
@@ -105,7 +110,7 @@ class App extends Component {
       );
   }
 
-  //! --- Current Location ---
+  // --- Current Location receive location---
   returnActiveView = (status) => {
     switch (status) {
       case 'init':
