@@ -13,7 +13,8 @@ class App extends Component {
     this.state = {
       status: 'init',
       isLoaded: false,
-      weatherData: null
+      weatherData: null,
+      city: undefined
     }
   }
 
@@ -52,12 +53,14 @@ class App extends Component {
       const api_url = await fetch(
         `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${REACT_APP_WEATHER_KEY}&units=metric`
       );
-      fetch(api_url, { signal: this.controllerSignal })
-        .then(response => response.json())
-        .then(result => {
-          console.log(result);
-          // const { city } = result
-        })
+      const res = await api_url.json()
+
+      this.setState({
+        isLoaded: true,
+        status: 'success',
+        city: res.name
+      })
+
 
     }
   };
@@ -154,7 +157,7 @@ class App extends Component {
   };
 
   weatherMethod = () => {
-
+    return this.gettingWeatherCity()
   }
 
   render() {
