@@ -56,7 +56,7 @@ class App extends Component {
         .then(response => response.json())
         .then(result => {
           console.log(result);
-          const { city } = result
+          // const { city } = result
         })
 
     }
@@ -153,12 +153,16 @@ class App extends Component {
     });
   };
 
+  weatherMethod = () => {
+
+  }
+
   render() {
     return (
       <div className='App'>
         <div className='container'>
           <h2>Weather App</h2>
-          <Form weatherMethod={this} />
+          <Form weatherMethod={this.weatherMethod} />
           {this.returnActiveView(this.state.status)}
         </div>
       </div>
