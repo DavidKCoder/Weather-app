@@ -37,12 +37,7 @@ main .weather-main {
   align-items: center;
   justify-content: center;
   margin: 0 100px;
-  /* background: #ffe000; 
-  background: linear-gradient(
-    to right,
-    #e2e2e2,
-    #ffe000
-  );  */
+ 
   background: url('https://img1.picmix.com/output/stamp/normal/2/9/3/5/545392_1cf8b.gif');
   border: 1px solid rgb(59, 59, 59);
   border-radius: 6px;
