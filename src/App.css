@@ -1,129 +1,129 @@
-@import url("https://fonts.googleapis.com/css?family=Open+Sans");
-
-body {
-  font-family: "Open Sans", serif;
-}
-
-.wrapper {
+.App {
   height: 100vh;
+  background: url("https://www.visitoostende.be/sites/all/themes/epsenkaas_theme/images/weather-icons-custom/011.png")
+    no-repeat center / cover #000;
+  color: #000;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url("./img/weather.jpeg");
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 }
 
-.main {
-  height: 55vh;
-  box-shadow: 0px 2px 80px -20px rgba(0, 0, 0, 0.5);
-  width: 60%;
-  margin: 0 auto;
+/* Main Container */
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 400px;
+  min-height: 364px;
+  padding: 0.5rem;
+  border-radius: 5px;
+  box-shadow: 0 0px 10px #111;
+  user-select: none;
+}
 
-  background: #000000; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to left,
-    #434343,
-    #000000
-  ); /* Chrome 10-25, Safari 5.1-6 */
+.header {
+  margin-top: 3px;
+}
+main .weather-main {
+  margin-top: 5px;
+  display: flex;
+}
+.btn-main {
+  position: absolute;
+  top: 45%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 100px;
+  /* background: #ffe000; 
   background: linear-gradient(
-    to left,
-    #434343,
-    #000000
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    to right,
+    #e2e2e2,
+    #ffe000
+  );  */
+  background: url('https://img1.picmix.com/output/stamp/normal/2/9/3/5/545392_1cf8b.gif');
+  border: 1px solid rgb(59, 59, 59);
+  border-radius: 6px;
+  padding: 5px;
+  width: 200px;
+  font-weight: 700;
+}
+.btn-main ion-icon {
+  margin-left: 10px;
 }
 
-.info {
-  height: 55vh;
-  background: url("img/we-are.png") center center no-repeat;
-  background-blend-mode: multiply;
-  background-color: #484747;
-  border: 2px solid #1f1f1f;
-  border-right: 2px solid #131e29;
-  background-size: cover;
+main .weather-main h2 {
+  font-size: 2em;
+}
+.temp-main .btn-degree {
+  margin: 2px;
+  border: 1px solid rgb(65, 63, 63);
+  border-radius: 5px;
+  padding: 2px 5px;
+  background: rgba(228, 227, 227, 0.897);
+  /* color: rgb(241, 212, 45); */
   display: flex;
   align-items: center;
-  justify-content: center;
-  text-align: center;
+}
+.btn-degree:hover {
+  box-shadow: 0 1px 3px black;
+}
+.temperature {
+  font-size: 2em;
+}
+.temp-main .hi-lo {
+  display: flex;
+}
+
+.hi-lo h5 {
+  margin: 5px 5px;
+}
+footer {
+  display: flex;
+  justify-content: space-around;
+}
+.weather-prop h4 {
+  font-size: 1em;
+}
+
+.weather-prop img {
+  width: 40px;
 }
 
 .form {
-  height: 55vh;
-  padding-top: 100px;
-  padding-left: 50px;
-  border-top: 2px solid #1e272e;
-  border-bottom: 2px solid #1e272e;
-  border-right: 2px solid #1e272e;
+  margin: 10px 0 0px 0;
 }
-
-input[type="text"] {
-  background-color: transparent;
+.form input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #000;
+}
+.form input[type="text"] {
+  background: transparent !important;
   border: 0;
-  border-bottom: solid 2px #d1b40d;
-  width: 50%;
-  padding-bottom: 4px;
-  color: rgb(255, 255, 255);
+  border-bottom: solid 1px rgba(48, 48, 48, 0.561);
   font-weight: lighter;
-  margin-bottom: 30px;
-  margin-right: 20px;
-  font-size: 20px;
   outline: none;
 }
-
 input::-webkit-input-placeholder {
-  color: rgb(255, 255, 255);
-  opacity: 0.2;
+  color: rgba(0, 0, 0, 0.294);
+}
+.form .btn {
+  margin-left: 20px;
+  border: 0.5px solid rgb(97, 96, 96);
+  border-radius: 5px;
+  padding: 5px;
+  background: transparent;
 }
 
-input::-moz-placeholder {
-  color: #103a65;
+.form .btn:hover {
+  box-shadow: 0 1px 2px #000;
+  background: rgba(241, 227, 19, 0.349);
 }
 
-button {
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-button:hover {
-  border-bottom: 2px solid #103a65;
-  position: relative;
-  top: 2px;
-}
-
-button:active {
-  border-bottom: 1px solid transparent;
-  border-color: transparent;
-  position: relative;
-  top: 2px;
-}
-
-.info h2 {
-  font-size: 2.5em;
-  color: #fff;
-}
-
-.info p {
-  color: #e4e4e4;
-  font-weight: bold;
-  font-size: 0.8em;
-}
-
-.infoWeath {
-  width: 50%;
-  font-size: 15px;
-  color: rgb(255, 255, 255);
-}
-
-.error {
-  color: #cccccc;
-  font-weight: bold;
-}
-
-button.degrees {
-  border: none;
-  font-weight: 700;
-}
-button.degrees:hover {
-  background: #484747;
-  color: #f5d626;
-}
-i.fa-thermometer-three-quarters {
-  color: #f5d626;
+ion-icon {
+  font-size: 18px;
+  margin-right: 5px;
 }

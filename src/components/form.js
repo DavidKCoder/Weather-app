@@ -1,13 +1,13 @@
-import React from 'react';
+import React from 'react'
 
-const Form = (props) => (
-    <div>
-        <form onSubmit={props.weatherMethod}>
-            <input type="text" name="city" placeholder="Choose city..." />
-            <button className="btn btn-warning">Getting weather</button>
-        </form>
-    </div>
+export const Form = ({ weatherMethod }) => {
+    return (
+        <>
+            <form onSubmit={weatherMethod} className="form">
+                <input type="text" name="city" placeholder="Choose city..." />
+                <button className="btn">Getting weather</button>
+            </form>
+        </>
+    )
 
-)
-
-export default Form;
+}
