@@ -58,7 +58,6 @@ main .weather-main h2 {
   border-radius: 5px;
   padding: 2px 5px;
   background: rgba(228, 227, 227, 0.897);
-  /* color: rgb(241, 212, 45); */
   display: flex;
   align-items: center;
 }
@@ -70,6 +69,9 @@ main .weather-main h2 {
 }
 .temp-main .hi-lo {
   display: flex;
+}
+.temp-main .weather-main p {
+  display: block;
 }
 
 .hi-lo h5 {
@@ -121,4 +123,8 @@ input::-webkit-input-placeholder {
 ion-icon {
   font-size: 18px;
   margin-right: 5px;
+}
+
+.infoWeath {
+  color: #fff;
 }
