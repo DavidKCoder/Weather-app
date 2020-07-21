@@ -3,7 +3,7 @@ import { DegreesToDirection, Month, Weekday, Day } from '../helpers/utils'
 
 
 export const WeatherData = ({ data, isLoaded, degree }) => {
-    const { name, country, tempC, tempF, description, temp_min_C,temp_min_F,temp_max_C,temp_max_F, feels_like_C,feels_like_F, speed, deg, humidity } = data;
+    const { name, country, tempC, tempF, description,icon, temp_min_C,temp_min_F,temp_max_C,temp_max_F, feels_like_C,feels_like_F, speed, deg, humidity } = data;
 
     return (
         <>
@@ -13,7 +13,7 @@ export const WeatherData = ({ data, isLoaded, degree }) => {
             <main>
                 <div className='weather-main'>
                     <img
-                        src={`http://openweathermap.org/img/wn/10d@2x.png`} alt='weather icon'
+                        src={`http://openweathermap.org/img/wn/${icon}@2x.png`} alt='weather icon'
                         className='weather-icon' />
                     <div>
                         <h2>{name}, {country}</h2>
