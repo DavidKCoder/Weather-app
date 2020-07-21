@@ -1,12 +1,12 @@
 .App {
   height: 100vh;
   background: url("https://www.visitoostende.be/sites/all/themes/epsenkaas_theme/images/weather-icons-custom/011.png")
-    no-repeat center / cover #000;
-  color: #000;
+    no-repeat center / cover;
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  z-index: 0;
 }
 
 /* Main Container */
@@ -21,6 +21,29 @@
   border-radius: 5px;
   box-shadow: 0 0px 10px #111;
   user-select: none;
+  z-index: 2;
+}
+/* Second container */
+.container-2 {
+  position: absolute;
+  left: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 350px;
+  border-radius: 5px;
+  box-shadow: 0 0 6px rgb(17, 17, 17);
+  user-select: none;
+  z-index: -1;
+  animation: container-2 3s both;
+}
+@keyframes container-2 {
+  0% {
+    left: 50%;
+  }
+  100% {
+    left: 66.5%;
+  }
 }
 
 .header {
@@ -37,8 +60,7 @@ main .weather-main {
   align-items: center;
   justify-content: center;
   margin: 0 100px;
- 
-  background: url('https://img1.picmix.com/output/stamp/normal/2/9/3/5/545392_1cf8b.gif');
+  background: url("https://img1.picmix.com/output/stamp/normal/2/9/3/5/545392_1cf8b.gif");
   border: 1px solid rgb(59, 59, 59);
   border-radius: 6px;
   padding: 5px;
@@ -52,22 +74,35 @@ main .weather-main {
 main .weather-main h2 {
   font-size: 2em;
 }
-.temp-main .btn-degree {
+.temp-main-2 {
+  padding: 5px 10px;
+  float: right;
+}
+.temp-main .btn-degree,
+.temp-main-2 .btn-degree {
   margin: 2px;
   border: 1px solid rgb(65, 63, 63);
   border-radius: 5px;
   padding: 2px 5px;
-  background: rgba(228, 227, 227, 0.897);
+  background: rgb(255, 255, 255);
   display: flex;
   align-items: center;
+  transition: 0.3s;
 }
+
 .btn-degree:hover {
   box-shadow: 0 1px 3px black;
+  background: rgba(255, 255, 255, 0);
 }
 .temperature {
   font-size: 2em;
 }
-.temp-main .hi-lo {
+.temperature-city {
+  margin-left: 0px;
+  font-size: 1.5em;
+}
+.temp-main .hi-lo,
+.temp-main-2 .hi-lo {
   display: flex;
 }
 .temp-main .weather-main p {
@@ -75,7 +110,7 @@ main .weather-main h2 {
 }
 
 .hi-lo h5 {
-  margin: 5px 5px;
+  margin: 5px 0px;
 }
 footer {
   display: flex;
@@ -98,7 +133,7 @@ footer {
   border-bottom: 1px solid #000;
 }
 .form input[type="text"] {
-  background: transparent !important;
+  background: transparent;
   border: 0;
   border-bottom: solid 1px rgba(48, 48, 48, 0.561);
   font-weight: lighter;
@@ -107,17 +142,25 @@ footer {
 input::-webkit-input-placeholder {
   color: rgba(0, 0, 0, 0.294);
 }
+input:-internal-autofill-selected {
+  appearance: menulist-button;
+  background-color: rgb(8, 94, 243) !important;
+  background-image: none !important;
+  color: -internal-light-dark(black, rgb(214, 18, 18)) !important;
+}
+
 .form .btn {
   margin-left: 20px;
   border: 0.5px solid rgb(97, 96, 96);
   border-radius: 5px;
   padding: 5px;
   background: transparent;
+  transition: 0.3s;
 }
 
 .form .btn:hover {
   box-shadow: 0 1px 2px #000;
-  background: rgba(241, 227, 19, 0.349);
+  background: rgb(241, 241, 241);
 }
 
 ion-icon {
