@@ -4,6 +4,7 @@ import './App.css';
 import { WeatherData } from './components/WeatherData';
 import { StatusData } from './components/StatusData';
 import { Form } from './components/Form';
+import { Weather } from './components/weather';
 
 const REACT_APP_WEATHER_KEY = 'f4e155f7679750eb61e41084eef3aa33';
 
@@ -14,7 +15,9 @@ class App extends Component {
       status: 'init',
       isLoaded: false,
       weatherData: null,
-      city: undefined
+      city: undefined,
+      temp: undefined,
+      icon: undefined
     }
   }
 
@@ -47,6 +50,7 @@ class App extends Component {
   //FIXME ---- incomplite part ----
   gettingWeatherCity = async e => {
     e.preventDefault();
+
     const city = e.target.elements.city.value;
 
     if (city) {
@@ -54,14 +58,24 @@ class App extends Component {
         `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${REACT_APP_WEATHER_KEY}&units=metric`
       );
       const res = await api_url.json()
+      console.log(res);
 
       this.setState({
         isLoaded: true,
         status: 'success',
-        city: res.name
+        city: res.name,
+        temp: res.main.temp,
+        icon: res.weather[0].icon,
+        error: undefined
       })
-
-
+      console.log(res.weather[0].icon);
+    } else {
+      this.setState({
+        city: undefined,
+        temp: undefined,
+        icon: undefined,
+        error: "Choose your city"
+      })
     }
   };
 
@@ -165,9 +179,16 @@ class App extends Component {
       <div className='App'>
         <div className='container'>
           <h2>Weather App</h2>
-          <Form weatherMethod={this.weatherMethod} />
+          <Form weatherMethod={this.gettingWeatherCity} />
           {this.returnActiveView(this.state.status)}
         </div>
+        <Weather
+          city={this.state.city}
+          temp={this.state.temp}
+          icon={this.state.icon}
+          isLoaded={this.state.isLoaded}
+          degree={this.degree}
+          tempF={this.tempF} />
       </div>
     );
   }
