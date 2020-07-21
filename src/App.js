@@ -59,21 +59,38 @@ class App extends Component {
       );
       const res = await api_url.json()
       console.log(res);
+      // const temp = res.main.temp
 
       this.setState({
         isLoaded: true,
         status: 'success',
         city: res.name,
-        temp: res.main.temp,
+        country: res.sys.country,
+        description: res.weather[0].description,
+        feels_like: res.main.feels_like,
+        temp: Math.floor(res.main.temp),
+        temp_F: Math.floor((res.main.temp * 9 / 5) + 32),
+        temp_max_C: res.main.temp_max,
+        temp_min_C: res.main.temp_min,
+        temp_max_F: Math.floor((res.main.temp_max * 9 / 5) + 32).toFixed(1),
+        temp_min_F: Math.floor((res.main.temp_min * 9 / 5) + 32).toFixed(1),
         icon: res.weather[0].icon,
         error: undefined
       })
-      console.log(res.weather[0].icon);
-    } else {
+    }
+    else {
       this.setState({
         city: undefined,
+        country: undefined,
+        description: undefined,
+        feels_like: undefined,
         temp: undefined,
+        temp_F: undefined,
         icon: undefined,
+        temp_max_C: undefined,
+        temp_min_C: undefined,
+        temp_max_F: undefined,
+        temp_min_F: undefined,
         error: "Choose your city"
       })
     }
@@ -182,13 +199,24 @@ class App extends Component {
           <Form weatherMethod={this.gettingWeatherCity} />
           {this.returnActiveView(this.state.status)}
         </div>
-        <Weather
-          city={this.state.city}
-          temp={this.state.temp}
-          icon={this.state.icon}
-          isLoaded={this.state.isLoaded}
-          degree={this.degree}
-          tempF={this.tempF} />
+        {this.state.city !== undefined ? <div className="container-2" >
+          <Weather
+            city={this.state.city}
+            country={this.state.country}
+            description={this.state.description}
+            feels_like={this.state.feels_like}
+            temp={this.state.temp}
+            temp_F={this.state.temp_F}
+            temp_max_C={this.state.temp_max_C}
+            temp_min_C={this.state.temp_min_C}
+            temp_max_F={this.state.temp_max_F}
+            temp_min_F={this.state.temp_min_F}
+            icon={this.state.icon}
+            isLoaded={this.state.isLoaded}
+            degree={this.degree}
+          />
+        </div> : ""}
+
       </div>
     );
   }
