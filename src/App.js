@@ -3,8 +3,14 @@ import './App.css';
 
 import { WeatherData } from './components/WeatherData';
 import { StatusData } from './components/StatusData';
-import { Form } from './components/Form';
-import { Weather } from './components/weather';
+// import { Weather } from './components/weather';
+
+
+import Loader from './components/Loader';
+import SearchCity from './components/SearchCity';
+import Result from './components/Result';
+import NotFound from './components/NotFound';
+
 
 const REACT_APP_WEATHER_KEY = 'f4e155f7679750eb61e41084eef3aa33';
 
@@ -14,10 +20,15 @@ class App extends Component {
     this.state = {
       status: 'init',
       isLoaded: false,
+      isLoader: false,
       weatherData: null,
       city: undefined,
-      temp: undefined,
-      icon: undefined
+      temp: [],
+      icon: undefined,
+
+      value: '',
+      weatherInfo: null,
+      error: false
     }
   }
 
@@ -47,56 +58,8 @@ class App extends Component {
     }
   }
 
-  //FIXME ---- incomplite part ----
-  gettingWeatherCity = async e => {
-    e.preventDefault();
 
-    const city = e.target.elements.city.value;
-
-    if (city) {
-      const api_url = await fetch(
-        `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${REACT_APP_WEATHER_KEY}&units=metric`
-      );
-      const res = await api_url.json()
-      console.log(res);
-      // const temp = res.main.temp
-
-      this.setState({
-        isLoaded: true,
-        status: 'success',
-        city: res.name,
-        country: res.sys.country,
-        description: res.weather[0].description,
-        feels_like: res.main.feels_like,
-        temp: Math.floor(res.main.temp),
-        temp_F: Math.floor((res.main.temp * 9 / 5) + 32),
-        temp_max_C: res.main.temp_max,
-        temp_min_C: res.main.temp_min,
-        temp_max_F: Math.floor((res.main.temp_max * 9 / 5) + 32).toFixed(1),
-        temp_min_F: Math.floor((res.main.temp_min * 9 / 5) + 32).toFixed(1),
-        icon: res.weather[0].icon,
-        error: undefined
-      })
-    }
-    else {
-      this.setState({
-        city: undefined,
-        country: undefined,
-        description: undefined,
-        feels_like: undefined,
-        temp: undefined,
-        temp_F: undefined,
-        icon: undefined,
-        temp_max_C: undefined,
-        temp_min_C: undefined,
-        temp_max_F: undefined,
-        temp_min_F: undefined,
-        error: "Choose your city"
-      })
-    }
-  };
-
-  // use OpenWeather API with coord
+  // use OpenWeather API with coord -------------------------------------
   getWeatherData = (lat, lon) => {
 
     const weatherApi = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${REACT_APP_WEATHER_KEY}`;
@@ -105,7 +68,7 @@ class App extends Component {
       .then(response => response.json())
       .then(
         (result) => {
-          console.log(result);
+          // console.log(result);
 
           const { name } = result;
           const { country } = result.sys;
@@ -127,7 +90,7 @@ class App extends Component {
               feels_like_F: Math.floor((feels_like * 9 / 5) + 32).toFixed(1),
               temp_min_C: temp_min.toFixed(1),
               temp_min_F: Math.floor((temp_min * 9 / 5) + 32).toFixed(1),
-              temp_max_C: temp_max.toFixed(1),
+              temp_max_C: temp_max.toFixed(2),
               temp_max_F: Math.floor((temp_max * 9 / 5) + 32).toFixed(1),
               speed,
               deg,
@@ -143,7 +106,7 @@ class App extends Component {
         }
       );
   }
-
+  //----------------------------------------------------
   // --- Current Location receive location---
   returnActiveView = (status) => {
     switch (status) {
@@ -158,7 +121,10 @@ class App extends Component {
           </button>
         );
       case 'success':
-        return <WeatherData data={this.state.weatherData} isLoaded={this.state.isLoaded} degree={this.degree} />;
+        return <WeatherData
+          data={this.state.weatherData}
+          isLoaded={this.state.isLoaded}
+          degree={this.degree} />;
       default:
         return <StatusData status={status} />;
     }
@@ -174,6 +140,9 @@ class App extends Component {
     } else {
       return;
     }
+    this.setState({
+      isLoaded: true
+    })
   }
 
   componentWillUnmount() {
@@ -187,34 +156,118 @@ class App extends Component {
     });
   };
 
-  weatherMethod = () => {
-    return this.gettingWeatherCity()
+  // ------------------------------------------------
+  componentDidMount() {
+    this.setState({
+      isLoader: true
+    })
   }
 
+  handleInputChange = e => {
+    this.setState({
+      value: e.target.value,
+    });
+  };
+
+  handleSearchCity = e => {
+    e.preventDefault();
+    const { value } = this.state;
+    const APIkey = REACT_APP_WEATHER_KEY;
+
+    const weather = `https://api.openweathermap.org/data/2.5/weather?q=${value}&APPID=${APIkey}&units=metric`;
+    const forecast = `https://api.openweathermap.org/data/2.5/forecast?q=${value}&APPID=${APIkey}&units=metric`;
+
+    Promise.all([fetch(weather), fetch(forecast)])
+      .then(([res1, res2]) => {
+        if (res1.ok && res2.ok) {
+          return Promise.all([res1.json(), res2.json()]);
+        }
+        throw Error(res1.statusText, res2.statusText);
+      })
+      .then(([data1, data2]) => {
+        const months = [
+          'January',
+          'February',
+          'March',
+          'April',
+          'May',
+          'June',
+          'July',
+          'August',
+          'September',
+          'October',
+          'Nocvember',
+          'December',
+        ];
+
+        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const currentDate = new Date();
+        const date = `${days[currentDate.getDay()]} ${currentDate.getDate()} ${
+          months[currentDate.getMonth()]
+          }`;
+        const sunset = new Date(data1.sys.sunset * 1000).toLocaleTimeString().slice(0, 4);
+        const sunrise = new Date(data1.sys.sunrise * 1000).toLocaleTimeString().slice(0, 4);
+
+        const weatherInfo = {
+          city: data1.name,
+          country: data1.sys.country,
+          date,
+          description: data1.weather[0].description,
+          main: data1.weather[0].main,
+          temp: data1.main.temp,
+          highestTemp: data1.main.temp_max,
+          lowestTemp: data1.main.temp_min,
+          sunrise,
+          sunset,
+          clouds: data1.clouds.all,
+          humidity: data1.main.humidity,
+          wind: data1.wind.speed,
+          forecast: data2.list.filter(reading => reading.dt_txt.includes("18:00:00")),
+        };
+        this.setState({
+          weatherInfo,
+          error: false,
+        });
+      })
+      .catch(error => {
+        console.log(error);
+
+        this.setState({
+          error: true,
+          weatherInfo: null,
+        });
+      });
+  };
+
+
+
   render() {
+    if (!this.state.isLoader) {
+      return <Loader msg={'Loading'} />
+    }
+    
+    const { value, weatherInfo, error } = this.state;
+
     return (
       <div className='App'>
         <div className='container'>
           <h2>Weather App</h2>
-          <Form weatherMethod={this.gettingWeatherCity} />
           {this.returnActiveView(this.state.status)}
         </div>
-        {this.state.city !== undefined ? <div className="container-2" >
-          <Weather
-            city={this.state.city}
-            country={this.state.country}
-            description={this.state.description}
-            feels_like={this.state.feels_like}
-            temp={this.state.temp}
-            temp_F={this.state.temp_F}
-            temp_max_C={this.state.temp_max_C}
-            temp_min_C={this.state.temp_min_C}
-            temp_max_F={this.state.temp_max_F}
-            temp_min_F={this.state.temp_min_F}
-            icon={this.state.icon}
-            isLoaded={this.state.isLoaded}
-            degree={this.degree}
-          />
+        {this.state.status !== "init" ? <div className="container-3">
+          <div showLabel={(weatherInfo || error) && true}>Weather app</div>
+          <div>
+            <SearchCity
+              value={value}
+              showResult={(weatherInfo || error) && true}
+              change={this.handleInputChange}
+              submit={this.handleSearchCity}
+            />
+            <div>
+              {weatherInfo && <Result weather={weatherInfo} />}
+            </div>
+            {error && <NotFound error={error} />}
+          </div>
         </div> : ""}
 
       </div>
