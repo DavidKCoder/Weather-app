@@ -245,7 +245,7 @@ class App extends Component {
     if (!this.state.isLoader) {
       return <Loader msg={'Loading'} />
     }
-    
+
     const { value, weatherInfo, error } = this.state;
 
     return (
@@ -255,7 +255,7 @@ class App extends Component {
           {this.returnActiveView(this.state.status)}
         </div>
         {this.state.status !== "init" ? <div className="container-3">
-          <div showLabel={(weatherInfo || error) && true}>Weather app</div>
+          <div showLabel={(weatherInfo || error) && true}>Search your city</div>
           <div>
             <SearchCity
               value={value}
