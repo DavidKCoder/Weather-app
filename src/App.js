@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import { WeatherData } from './components/WeatherData';
-import { StatusData } from './components/StatusData';
-// import { Weather } from './components/weather';
+import { WeatherData } from './components/CurrentCity/WeatherData';
+import { StatusData } from './components/CurrentCity/StatusData';
 
-
-import Loader from './components/Loader';
-import SearchCity from './components/SearchCity';
-import Result from './components/Result';
-import NotFound from './components/NotFound';
+import Loader from './components/Loader/Loader';
+import SearchCity from './components/Search/SearchCity';
+import Result from './components/Forecast/Result';
+import NotFound from './components/CityNotFound/NotFound';
+import FavoriteList from './components/FavoriteCity/FavoriteList';
 
 
 const REACT_APP_WEATHER_KEY = 'f4e155f7679750eb61e41084eef3aa33';
@@ -33,7 +32,6 @@ class App extends Component {
   }
 
   //-- For abort fetch--\
-
   abortController = new AbortController();
   controllerSignal = this.abortController.signal;
 
@@ -215,6 +213,7 @@ class App extends Component {
           description: data1.weather[0].description,
           main: data1.weather[0].main,
           temp: data1.main.temp,
+          tempF: (data1.main.temp * 9 / 5) + 32,
           highestTemp: data1.main.temp_max,
           lowestTemp: data1.main.temp_min,
           sunrise,
@@ -254,22 +253,24 @@ class App extends Component {
           <h2>Weather App</h2>
           {this.returnActiveView(this.state.status)}
         </div>
-        {this.state.status !== "init" ? <div className="container-3">
-          <div showLabel={(weatherInfo || error) && true}>Search your city</div>
+        {this.state.status !== "init" ?
           <div>
-            <SearchCity
-              value={value}
-              showResult={(weatherInfo || error) && true}
-              change={this.handleInputChange}
-              submit={this.handleSearchCity}
-            />
-            <div>
-              {weatherInfo && <Result weather={weatherInfo} />}
-            </div>
-            {error && <NotFound error={error} />}
-          </div>
-        </div> : ""}
-
+            <FavoriteList />
+            <div className="container-3">
+              <div showLabel={(weatherInfo || error) && true}>Search city</div>
+              <div>
+                <SearchCity
+                  value={value}
+                  showResult={(weatherInfo || error) && true}
+                  change={this.handleInputChange}
+                  submit={this.handleSearchCity}
+                />
+                <div>
+                  {weatherInfo && <Result weather={weatherInfo} isLoaded={this.state.isLoaded} />}
+                </div>
+                {error && <NotFound error={error} />}
+              </div>
+            </div></div> : ""}
       </div>
     );
   }
