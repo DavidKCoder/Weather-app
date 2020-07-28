@@ -359,6 +359,19 @@ ion-icon {
     left: 15%;
   }
 }
+.favorite-form {
+  display: flex;
+}
+.add-btn {
+  margin-left: 10px;
+  padding: 0px 4px;
+  border: 1px solid black;
+  border-radius: 5px;
+  background: cadetblue;
+}
+.add-btn:hover {
+  background: rgb(245, 118, 101);
+}
 .favorite-wrapper input {
   outline: none;
 }
@@ -379,6 +392,9 @@ ion-icon {
   font-size: 18px;
   margin-left: 5px;
   display: inline-block;
+  background: transparent;
+  border: none;
+  outline: none;
 }
 
 .favorite-name:hover {
