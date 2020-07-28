@@ -4,7 +4,7 @@ import React from 'react'
 const SearchCity = ({ submit, value, change, showResult }) => {
     return (
         <>
-            <form className="form" showResult={showResult} onSubmit={submit}>
+            <form className="form" onSubmit={showResult} onSubmit={submit}>
                 <input type="text" value={value} placeholder="Enter city" onChange={change} />
             </form>
         </>
