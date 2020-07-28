@@ -21,7 +21,7 @@ class App extends Component {
       isLoaded: false,
       isLoader: false,
       weatherData: null,
-      city: undefined,
+      // city: undefined,
       temp: [],
       icon: undefined,
 
@@ -167,8 +167,11 @@ class App extends Component {
     });
   };
 
-  handleSearchCity = e => {
-    e.preventDefault();
+
+
+
+
+  getWeather = () => {
     const { value } = this.state;
     const APIkey = REACT_APP_WEATHER_KEY;
 
@@ -227,18 +230,24 @@ class App extends Component {
           weatherInfo,
           error: false,
         });
+
       })
       .catch(error => {
         console.log(error);
-
-        this.setState({
-          error: true,
-          weatherInfo: null,
-        });
       });
+
+  }
+
+  handleSearchCity = e => {
+    e.preventDefault();
+    this.getWeather()
+
+    this.setState({
+      error: true,
+      weatherInfo: null,
+    });
+
   };
-
-
 
   render() {
     if (!this.state.isLoader) {
@@ -255,9 +264,12 @@ class App extends Component {
         </div>
         {this.state.status !== "init" ?
           <div>
-            <FavoriteList />
+            <div>
+              <FavoriteList />
+            </div>
+
             <div className="container-3">
-              <div showLabel={(weatherInfo || error) && true}>Search city</div>
+              <div>Search city</div>
               <div>
                 <SearchCity
                   value={value}
