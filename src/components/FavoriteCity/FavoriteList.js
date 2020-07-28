@@ -1,33 +1,64 @@
-import React, { useState } from 'react'
-import Context from './context'
-import AddCity from './AddCity'
+import React, { useState, Component } from 'react'
+
 import CityList from './CityList'
 
 
-export default function FavoriteList() {
-    const [cities, setCity] = useState([])
+class FavoriteList extends Component {
 
-    function addCity(title) {
-        setCity(
-            cities.concat([
-                {
-                    title,
-                    id: Date.now()
-                }
-            ])
-        )
-    }
-    function removeCity(id) {
-        setCity(cities.filter(city => city.id !== id))
+    constructor(props) {
+        super(props);
+        this.state = {
+            cities: [{ text: 'Yerevan', id: '1' }],
+            value: "",
+        };
     }
 
-    return (
-        <Context.Provider value={{ removeCity }}>
+    handleChange = (e) => {
+        this.setState({
+            value: e.target.value
+        })
+    }
+    debugger;
+    handleSubmit = (e) => {
+        e.preventDefault();
+        if (!this.state.value.length) {
+            return;
+        }
+        this.setState({
+            value: "none"
+        })
+
+        const newItem = {
+            text: this.state.value,
+            id: Date.now()
+        };
+        this.setState(prevState => ({
+            cities: prevState.cities.concat(newItem),
+            value: ''
+        }));
+    }
+
+    render() {
+        return (
             <div className="favorite-wrapper">
-                <h5>Your Favorite Cities</h5>
-                <AddCity onCreate={addCity} />
-                {cities.length ? <CityList cities={cities} /> : <h6>Empty...</h6>}
+                <div>
+                    <h4>Favorite Cities</h4>
+                    <form className="favorite-form" >
+                        <input
+                            type="text"
+                            placeholder="add city..."
+                            className="textInput"
+                            onChange={this.handleChange}
+                        />
+
+                        <div onClick={this.handleSubmit} className="add-btn"> + </div>
+                    </form>
+                    <CityList cities={this.state.cities} className="" />
+                </div>
+
             </div>
-        </Context.Provider>
-    )
+        );
+    }
 }
+
+export default FavoriteList;

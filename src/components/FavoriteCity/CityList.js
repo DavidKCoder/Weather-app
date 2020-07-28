@@ -1,18 +1,17 @@
 import React from 'react'
-import CityItem from './CityItem'
 
 
-function CityList(props) {
+const CityList = ({ cities }) => {
     return (
         <ul className="favorite-list">
-            {props.cities.map((city, index) => {
-                return (
-                    <CityItem
-                        city={city}
-                        key={city.id}
-                        index={index} />
-                )
-            })}
+            {cities.map((city,index) => (
+                <li className="favorite-item" key={city.id}>
+                    <span>
+                        <span className="favorite-index">{index + 1}.</span>
+                        <span className="favorite-name">"{city.text}"</span>
+                    </span>
+                </li>
+            ))}
         </ul>
     )
 }
