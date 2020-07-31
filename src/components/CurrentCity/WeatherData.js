@@ -1,5 +1,7 @@
 import React from 'react'
 import { DegreesToDirection, Month, Weekday, Day } from '../../helpers/utils'
+import PropTypes from 'prop-types'
+
 
 
 export const WeatherData = ({ data, isLoaded, degree }) => {
@@ -42,4 +44,24 @@ export const WeatherData = ({ data, isLoaded, degree }) => {
             </footer>
         </>
     );
+}
+
+WeatherData.propTypes = {
+    data: PropTypes.shape({
+        name: PropTypes.string,
+        country: PropTypes.string,
+        tempC: PropTypes.number,
+        tempF: PropTypes.number,
+        description: PropTypes.string,
+        icon: PropTypes.icon,
+        temp_min_C: PropTypes.string,
+        temp_min_F: PropTypes.string,
+        temp_max_C: PropTypes.string,
+        temp_max_F: PropTypes.string,
+        feels_like_C: PropTypes.string,
+        feels_like_F: PropTypes.string,
+        speed: PropTypes.number,
+        deg: PropTypes.number,
+        humidity: PropTypes.number,
+    }).isRequired
 }

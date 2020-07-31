@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 
 const ForecastHour = props => {
@@ -14,12 +15,14 @@ const ForecastHour = props => {
     );
 };
 
-// ForecastHour.propTypes = {
-//     temp: PropTypes.number.isRequired,
-//     month: PropTypes.string.isRequired,
-//     day: PropTypes.string.isRequired,
-//     hour: PropTypes.number.isRequired,
-//     icon: PropTypes.string.isRequired,
-// };
+ForecastHour.propTypes = {
+    temp: PropTypes.number.isRequired,
+    tempF: PropTypes.number.isRequired,
+    month: PropTypes.string.isRequired,
+    isLoaded: PropTypes.bool.isRequired,
+    day: PropTypes.string.isRequired,
+    hour: PropTypes.number.isRequired,
+    icon: PropTypes.string.isRequired,
+};
 
 export default ForecastHour;

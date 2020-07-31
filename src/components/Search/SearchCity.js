@@ -1,21 +1,20 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
-
-const SearchCity = ({ submit, value, change, showResult }) => {
+const SearchCity = ({ submit, value, change }) => {
     return (
         <>
-            <form className="form" onSubmit={showResult} onSubmit={submit}>
+            <form className="form"  onSubmit={submit}>
                 <input type="text" value={value} placeholder="Enter city" onChange={change} />
             </form>
         </>
     );
 };
 
-// SearchCity.propTypes = {
-//     submit: PropTypes.func.isRequired,
-//     value: PropTypes.string.isRequired,
-//     change: PropTypes.func.isRequired,
-//     showResult: PropTypes.bool.isRequired,
-// };
+SearchCity.propTypes = {
+    submit: PropTypes.func.isRequired,
+    value: PropTypes.string.isRequired,
+    change: PropTypes.func.isRequired,
+};
 
 export default SearchCity;
