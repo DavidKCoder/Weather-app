@@ -1,0 +1,428 @@
+.App {
+  height: 100vh;
+  background: url("https://www.visitoostende.be/sites/all/themes/epsenkaas_theme/images/weather-icons-custom/011.png")
+    no-repeat center / cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+
+/* Main Container */
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 400px;
+  min-height: 364px;
+  padding: 0.5rem;
+  border-radius: 5px;
+  box-shadow: 0 0px 10px #111;
+  user-select: none;
+}
+/* Second container */
+.container-3 {
+  position: absolute;
+  left: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 350px;
+  border-radius: 5px;
+  box-shadow: 0 0 6px rgb(17, 17, 17);
+  background: #ffe000; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to left,
+    #ffe000,
+    #ffffff
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to left,
+    #ffe100ee,
+    #ffffff
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  user-select: none;
+  animation: container-2 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+@keyframes container-2 {
+  0% {
+    top: 0%;
+    left: 67%;
+  }
+  100% {
+    top: 25%;
+    left: 67%;
+  }
+}
+
+/* Third container */
+.container-3 {
+  padding: 5px;
+}
+
+.forecast-header {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.forecast-city h3 {
+  font-size: 2em;
+}
+.forecast-cards {
+  display: block;
+  margin-top: 200px;
+}
+.forecast-temp {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  float: right;
+}
+.forecast-temp h2 {
+  font-size: 3em;
+}
+.forecast-temp span {
+  font-size: 15px;
+}
+.forecast-result {
+  border: 1px solid #000;
+  box-shadow: 0 0 8px 0.5px rgb(49, 49, 49);
+  border-radius: 16px;
+  padding: 5px;
+  margin-top: 35px;
+  font-size: 15px;
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+}
+.forecast-card {
+  margin-top: 35px;
+  height: 160px;
+}
+.forecat-name {
+  display: inline-block;
+}
+.btn-group {
+  display: flex;
+  justify-content: space-around;
+}
+.forecast button {
+  padding: 1px 5px;
+  align-items: center;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  margin-top: 20px;
+  border: none;
+  outline: none;
+}
+
+.forecast button:hover {
+  box-shadow: 0 2px 5px rgb(73, 73, 73);
+  animation: pulsate-bck 0.5s ease-in-out infinite both;
+}
+@keyframes pulsate-bck {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.96);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.forecast button ion-icon {
+  position: relative;
+  font-size: 20px;
+  top: 3px;
+  color: rgb(255, 0, 0);
+}
+button.default {
+  border: 1px solid rgb(0, 0, 0);
+  background: #f8e659;
+
+  border-radius: 8px;
+  outline: none;
+}
+button.active {
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 8px;
+  outline: none;
+  background: #ffffff;
+}
+.show {
+  visibility: hidden;
+}
+
+.forecast-card-result {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-around;
+}
+.forecast-day {
+  display: flexbox;
+  align-items: center;
+  text-align: center;
+}
+.forecast-day div {
+  font-size: 0.8em;
+  border: 1px solid rgb(251, 255, 0);
+  border-radius: 8px;
+  padding: 3px;
+  background: rgb(255, 237, 72);
+}
+.forecast-day span {
+  font-weight: bold;
+  font-size: 1.1em;
+  border: 1px solid rgb(251, 255, 0);
+  border-radius: 8px;
+  padding: 2px;
+  background: rgb(255, 255, 255);
+}
+
+.header {
+  margin-top: 3px;
+}
+main .weather-main {
+  margin-top: 5px;
+  display: flex;
+}
+.btn-main {
+  position: absolute;
+  top: 45%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 100px;
+  background: url("https://img1.picmix.com/output/stamp/normal/2/9/3/5/545392_1cf8b.gif");
+  border: 1px solid rgb(59, 59, 59);
+  border-radius: 6px;
+  padding: 5px;
+  width: 200px;
+  font-weight: 700;
+}
+.btn-main ion-icon {
+  margin-left: 10px;
+}
+
+main .weather-main h2 {
+  font-size: 2em;
+}
+.temp-main-2 {
+  padding: 5px 8px;
+  float: right;
+}
+.temp-main .btn-degree {
+  position: absolute;
+  top: 2%;
+  right: 4%;
+  margin: 2px;
+  border: 0.5px solid rgb(65, 63, 63);
+  border-radius: 5px;
+  padding: 2px 5px;
+  background: #f1ca2cc5;
+  display: flex;
+  align-items: center;
+  transition: 0.3s;
+}
+
+.btn-degree:hover {
+  box-shadow: 0 1px 1px black;
+  background: #f32824d0;
+}
+
+.temperature {
+  font-size: 2em;
+}
+.temperature-city {
+  margin-left: 0px;
+  font-size: 1.5em;
+}
+.temp-main .hi-lo,
+.temp-main-2 .hi-lo {
+  display: flex;
+}
+.temp-main .weather-main p {
+  display: block;
+}
+
+.hi-lo h5 {
+  margin: 5px 5px;
+}
+footer {
+  display: flex;
+  justify-content: space-around;
+}
+.weather-prop h4 {
+  font-size: 1em;
+}
+
+.weather-prop img {
+  width: 40px;
+}
+
+/* Not Found city class */
+.notFound {
+  margin-top: 5px;
+  color: rgb(243, 83, 83);
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.form {
+  margin: 10px 0 0px 0;
+}
+
+.form input[type="text"] {
+  background: transparent;
+  border: 0;
+  border-bottom: solid 1px rgba(48, 48, 48, 0.561);
+  background: transparent;
+  font-weight: lighter;
+  font-family: "Courier New", Courier, monospace;
+  outline: none;
+}
+
+input::-webkit-input-placeholder {
+  font-family: "Times New Roman", Times, serif;
+  color: rgba(0, 0, 0, 0.294);
+}
+
+.form .btn {
+  margin-left: 20px;
+  border: 0.5px solid rgb(97, 96, 96);
+  border-radius: 5px;
+  padding: 5px;
+  background: transparent;
+  transition: 0.3s;
+}
+
+.form .btn:hover {
+  box-shadow: 0 1px 2px #000;
+  background: rgb(241, 241, 241);
+}
+
+ion-icon {
+  font-size: 18px;
+  margin-right: 5px;
+}
+
+.infoWeath {
+  color: #fff;
+}
+
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.loader img {
+  width: 100px;
+  height: 100px;
+}
+.loader h4 {
+  text-align: center;
+}
+
+/** ---------Favorite Cities--------------- */
+
+.favorite-wrapper {
+  position: absolute;
+  padding: 3px;
+  width: 210px;
+  border-radius: 5px;
+  box-shadow: 0 0 6px rgb(17, 17, 17);
+  background: #ffe000; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to left,
+    #ffe000,
+    #ffffff
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to left,
+    #ffe100ee,
+    #ffffff
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  user-select: none;
+  z-index: 10;
+  animation: favorite 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+@keyframes favorite {
+  0% {
+    top: 35%;
+    left: 0%;
+  }
+  100% {
+    top: 35%;
+    left: 15%;
+  }
+}
+.favorite-form {
+  display: flex;
+}
+.add-btn {
+  margin-left: 10px;
+  padding: 0px 4px;
+  border: 1px solid black;
+  border-radius: 5px;
+  background: cadetblue;
+}
+.add-btn:hover {
+  background: rgb(245, 118, 101);
+}
+.favorite-wrapper input {
+  outline: none;
+}
+.favorite-list {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  list-style: none;
+}
+.favorite-item {
+  margin-top: 3px;
+}
+
+.fav-btns {
+  display: flex;
+  justify-content: space-between;
+}
+.favorite-name {
+  font-size: 18px;
+  margin-left: 5px;
+  display: inline-block;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.favorite-name:hover {
+  color: rgb(221, 4, 4);
+  font-weight: bold;
+}
+
+
+button.rm {
+  position: relative;
+  padding: 1px 5px;
+  background: #ec292991;
+  color: #000;
+  outline: none;
+  border: none;
+  border-radius: 50px;
+  transition: 0.3s linear;
+}
+button.rm:hover {
+  transform: rotate(180deg);
+  background: rgb(255, 0, 0);
+}
+.favorite-name button {
+  background: transparent;
+  border: none;
+  outline: none;
+  text-transform: capitalize;
+}
+.favorite-name button[type="text"]:hover {
+  color: rgb(255, 0, 0);
+}
