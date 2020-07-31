@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import { WeatherData } from '../CurrentCity/WeatherData';
-import { StatusData } from '../CurrentCity/StatusData';
+import { WeatherData } from '../City/CurrentCity/WeatherData';
+import { StatusData } from '../City/CurrentCity/StatusData';
 
 import Loader from '../Loader/Loader';
 import SearchCity from '../Search/SearchCity';
 import Result from '../Forecast/Result';
-import FavoriteList from '../FavoriteCity/FavoriteList';
-import NotFound from '../CityNotFound/NotFound';
+import FavoriteList from '../City/FavoriteCity/FavoriteList';
+import NotFound from '../City/CityNotFound/NotFound';
 
 
 const REACT_APP_WEATHER_KEY = 'f4e155f7679750eb61e41084eef3aa33';
