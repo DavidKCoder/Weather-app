@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 export const StatusData = ({ status }) => {
   let statusMessage = '';
@@ -21,4 +22,8 @@ export const StatusData = ({ status }) => {
   return (
     <h3 className='status-message'>{statusMessage}</h3>
   );
+}
+
+StatusData.prototype = {
+  status: PropTypes.string.isRequired
 }

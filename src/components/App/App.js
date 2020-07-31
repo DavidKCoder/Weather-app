@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import { WeatherData } from './components/CurrentCity/WeatherData';
-import { StatusData } from './components/CurrentCity/StatusData';
+import { WeatherData } from '../City/CurrentCity/WeatherData';
+import { StatusData } from '../City/CurrentCity/StatusData';
 
-import Loader from './components/Loader/Loader';
-import SearchCity from './components/Search/SearchCity';
-import Result from './components/Forecast/Result';
-import NotFound from './components/CityNotFound/NotFound';
-import FavoriteList from './components/FavoriteCity/FavoriteList';
+import Loader from '../Loader/Loader';
+import SearchCity from '../Search/SearchCity';
+import Result from '../Forecast/Result';
+import FavoriteList from '../City/FavoriteCity/FavoriteList';
+import NotFound from '../City/CityNotFound/NotFound';
 
 
 const REACT_APP_WEATHER_KEY = 'f4e155f7679750eb61e41084eef3aa33';
@@ -155,21 +155,6 @@ class App extends Component {
   };
 
   // ------------------------------------------------
-  componentDidMount() {
-    this.setState({
-      isLoader: true
-    })
-  }
-
-  handleInputChange = e => {
-    this.setState({
-      value: e.target.value,
-    });
-  };
-
-
-
-
 
   getWeather = () => {
     const { value } = this.state;
@@ -238,15 +223,26 @@ class App extends Component {
 
   }
 
+  componentDidMount() {
+    this.setState({
+      isLoader: true
+    })
+  }
+
+  handleInputChange = e => {
+    this.setState({
+      value: e.target.value,
+    });
+  };
+
   handleSearchCity = e => {
     e.preventDefault();
     this.getWeather()
 
-    this.setState({
-      error: true,
-      weatherInfo: null,
-    });
-
+    // this.setState({
+    //   error: true,
+    //   weatherInfo: null,
+    // });
   };
 
   render() {
@@ -265,7 +261,12 @@ class App extends Component {
         {this.state.status !== "init" ?
           <div>
             <div>
-              <FavoriteList />
+              <FavoriteList
+                value={value}
+                // showResult={(weatherInfo || error) && true}
+                change={this.handleInputChange}
+                submit={this.handleSearchCity}
+              />
             </div>
 
             <div className="container-3">
@@ -273,7 +274,7 @@ class App extends Component {
               <div>
                 <SearchCity
                   value={value}
-                  showResult={(weatherInfo || error) && true}
+                  // showResult={(weatherInfo || error) && true}
                   change={this.handleInputChange}
                   submit={this.handleSearchCity}
                 />
@@ -282,7 +283,8 @@ class App extends Component {
                 </div>
                 {error && <NotFound error={error} />}
               </div>
-            </div></div> : ""}
+            </div>
+          </div> : ""}
       </div>
     );
   }

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import ForecastHour from './ForecastHour';
+import PropTypes from 'prop-types'
 
 
 const Result = ({ weather, isLoaded }) => {
@@ -33,7 +34,6 @@ const Result = ({ weather, isLoaded }) => {
         />
     ));
 
-
     return (
         <div className="forecast">
             <div className="forecast-header">
@@ -48,7 +48,6 @@ const Result = ({ weather, isLoaded }) => {
                     </div>
                 </div>
             </div>
-
             <div className="forecast-result">
                 <div>
                     <div>{Math.floor(highestTemp)}&#176;</div>
@@ -72,7 +71,6 @@ const Result = ({ weather, isLoaded }) => {
                     <div>Sunset</div>
                 </div>
             </div>
-
             <button
                 className={open === false ? "active" : "default"}
                 onClick={() => setOpen(!open)} >
@@ -82,28 +80,26 @@ const Result = ({ weather, isLoaded }) => {
             <div className={open ? 'show' : ""} title="forecast">
                 <div className="forecast-card-result">{forecasts}</div>
             </div>
-
-
         </div >
     );
 };
 
-//   Result.propTypes = {
-//     weather: PropTypes.shape({
-//       city: PropTypes.string,
-//       country: PropTypes.string,
-//       date: PropTypes.string,
-//       description: PropTypes.string,
-//       main: PropTypes.string,
-//       temp: PropTypes.number,
-//       sunrise: PropTypes.string,
-//       sunset: PropTypes.string,
-//       humidity: PropTypes.number,
-//       wind: PropTypes.number,
-//       highestTemp: PropTypes.number,
-//       lowestTemp: PropTypes.number,
-//       forecast: PropTypes.array,
-//     }).isRequired,
-//   };
+  Result.propTypes = {
+    weather: PropTypes.shape({
+      city: PropTypes.string,
+      country: PropTypes.string,
+      date: PropTypes.string,
+      description: PropTypes.string,
+      main: PropTypes.string,
+      temp: PropTypes.number,
+      sunrise: PropTypes.string,
+      sunset: PropTypes.string,
+      humidity: PropTypes.number,
+      wind: PropTypes.number,
+      highestTemp: PropTypes.number,
+      lowestTemp: PropTypes.number,
+      forecast: PropTypes.array,
+    }).isRequired,
+  };
 
 export default Result;

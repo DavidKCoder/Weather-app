@@ -382,11 +382,11 @@ ion-icon {
 }
 .favorite-item {
   margin-top: 3px;
+}
+
+.fav-btns {
   display: flex;
   justify-content: space-between;
-}
-.favorite-index {
-  font-size: 13px;
 }
 .favorite-name {
   font-size: 18px;
@@ -402,26 +402,12 @@ ion-icon {
   font-weight: bold;
 }
 
-button[type="submit"] {
-  margin-left: 10px;
-  padding: 0px 6px;
-  background: rgba(43, 165, 6, 0.466);
-  color: #fff;
-  font-size: 20px;
-  outline: none;
-  border: none;
-  border-radius: 50px;
-  transition: 0.2s;
-}
-button[type="submit"]:hover {
-  background: rgb(40, 150, 7);
-}
+
 button.rm {
-  margin-right: 4px;
-  padding: 0px 5px;
-  background: #dad73391;
+  position: relative;
+  padding: 1px 5px;
+  background: #ec292991;
   color: #000;
-  font-size: 18px;
   outline: none;
   border: none;
   border-radius: 50px;
@@ -430,4 +416,13 @@ button.rm {
 button.rm:hover {
   transform: rotate(180deg);
   background: rgb(255, 0, 0);
+}
+.favorite-name button {
+  background: transparent;
+  border: none;
+  outline: none;
+  text-transform: capitalize;
+}
+.favorite-name button[type="text"]:hover {
+  color: rgb(255, 0, 0);
 }
