@@ -7,6 +7,6 @@ const Loader = props => {
             <h4>{props.msg}</h4>
         </div>
     )
-}
+};
 
 export default Loader;

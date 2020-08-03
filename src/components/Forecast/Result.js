@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 import ForecastHour from './ForecastHour';
 import PropTypes from 'prop-types'
 
-
-const Result = ({ weather, isLoaded }) => {
+const Result = ({ weather, isCelsius }) => {
     const [open, setOpen] = useState(true)
 
     const {
@@ -30,7 +29,7 @@ const Result = ({ weather, isLoaded }) => {
             month={item.dt_txt.slice(5, 7)}
             day={item.dt_txt.slice(8, 10)}
             hour={item.dt_txt.slice(11, 13) * 1}
-            isLoaded={isLoaded}
+            isCelsius={isCelsius}
         />
     ));
 
@@ -43,7 +42,7 @@ const Result = ({ weather, isLoaded }) => {
                 </div>
                 <div className="forecast-temp">
                     <div>
-                        <h2>{isLoaded ? `${Math.floor(temp)} °C` : `${Math.floor(tempF)} °F`}</h2>
+                        <h2>{isCelsius ? `${Math.floor(temp)} °C` : `${Math.floor(tempF)} °F`}</h2>
                         <span>{description}</span>
                     </div>
                 </div>
@@ -74,7 +73,7 @@ const Result = ({ weather, isLoaded }) => {
             <button
                 className={open === false ? "active" : "default"}
                 onClick={() => setOpen(!open)} >
-                {open ? <ion-icon name="arrow-down-outline"></ion-icon> : <ion-icon name="arrow-up-outline"></ion-icon>}
+                <ion-icon name={open ? "arrow-down-outline" : "arrow-up-outline"} />
                 <h3 className="forecat-name">Forecast</h3>
             </button>
             <div className={open ? 'show' : ""} title="forecast">
@@ -84,22 +83,22 @@ const Result = ({ weather, isLoaded }) => {
     );
 };
 
-  Result.propTypes = {
+Result.propTypes = {
     weather: PropTypes.shape({
-      city: PropTypes.string,
-      country: PropTypes.string,
-      date: PropTypes.string,
-      description: PropTypes.string,
-      main: PropTypes.string,
-      temp: PropTypes.number,
-      sunrise: PropTypes.string,
-      sunset: PropTypes.string,
-      humidity: PropTypes.number,
-      wind: PropTypes.number,
-      highestTemp: PropTypes.number,
-      lowestTemp: PropTypes.number,
-      forecast: PropTypes.array,
+        city: PropTypes.string,
+        country: PropTypes.string,
+        date: PropTypes.string,
+        description: PropTypes.string,
+        main: PropTypes.string,
+        temp: PropTypes.number,
+        sunrise: PropTypes.string,
+        sunset: PropTypes.string,
+        humidity: PropTypes.number,
+        wind: PropTypes.number,
+        highestTemp: PropTypes.number,
+        lowestTemp: PropTypes.number,
+        forecast: PropTypes.array,
     }).isRequired,
-  };
+};
 
 export default Result;
