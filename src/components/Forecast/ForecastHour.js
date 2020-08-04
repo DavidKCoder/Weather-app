@@ -20,7 +20,6 @@ ForecastHour.propTypes = {
     temp: PropTypes.number.isRequired,
     tempF: PropTypes.number.isRequired,
     month: PropTypes.string.isRequired,
-    isCelsius: PropTypes.bool.isCelsius,
     day: PropTypes.string.isRequired,
     hour: PropTypes.number.isRequired,
     icon: PropTypes.string.isRequired,
