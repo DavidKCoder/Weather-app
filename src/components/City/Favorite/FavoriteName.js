@@ -1,19 +1,9 @@
-import React, { Component, useState } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 const FavoriteName = ({ submit, change }) => {
-    const [state, changeState] = useState({ cities: [{ text: "Yerevan", id: 1 }] })
+    const [state, setState] = useState({ cities: [{ text: "Yerevan", id: 1 }] })
     const [value, setValue] = useState("")
-
-    const handleName = e => {
-        const { target } = e;
-
-        changeState(state => ({
-            ...state,
-            text: target.value,
-            id: Date.now()
-        }));
-    };
 
     const handleSubmit = (evn, e) => {
         evn.preventDefault(e);
@@ -25,17 +15,16 @@ const FavoriteName = ({ submit, change }) => {
             id: Date.now()
         };
 
-        changeState(prevState => ({
+        setState(prevState => ({
             cities: [...prevState.cities, newItem],
             value: ""
         }));
     };
 
-
     const removeItem = (id) => {
         const copyCities = [...state.cities]
         const filterCities = copyCities.filter(i => i.id !== id)
-        changeState({
+        setState({
             cities: filterCities
         })
     };

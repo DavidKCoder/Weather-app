@@ -102,7 +102,7 @@ class App extends Component {
   }
 
   //* Current Location receive location
-  
+
   returnActiveView = (status) => {
     switch (status) {
       case 'init':
@@ -142,7 +142,7 @@ class App extends Component {
   }
 
   //* Change °C to °F 
-  
+
   degree = () => {
     this.setState({
       isCelsius: !this.state.isCelsius,
@@ -167,7 +167,7 @@ class App extends Component {
         const months = Months;
         const days = Weekdays;
         const currentDate = new Date();
-        
+
         const date = `${days[currentDate.getDay()]} ${currentDate.getDate()} ${
           months[currentDate.getMonth()]
           }`;
