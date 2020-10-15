@@ -26,6 +26,7 @@
   position: absolute;
   left: 40%;
   display: flex;
+  padding: 5px;
   flex-direction: column;
   justify-content: space-between;
   width: 350px;
@@ -57,9 +58,6 @@
 }
 
 /* Third container */
-.container-3 {
-  padding: 5px;
-}
 
 .forecast-header {
   margin-top: 10px;
@@ -402,8 +400,7 @@ ion-icon {
   font-weight: bold;
 }
 
-
-button.rm {
+button.remove {
   position: relative;
   padding: 1px 5px;
   background: #ec292991;
@@ -413,7 +410,7 @@ button.rm {
   border-radius: 50px;
   transition: 0.3s linear;
 }
-button.rm:hover {
+button.remove:hover {
   transform: rotate(180deg);
   background: rgb(255, 0, 0);
 }
@@ -425,4 +422,76 @@ button.rm:hover {
 }
 .favorite-name button[type="text"]:hover {
   color: rgb(255, 0, 0);
+}
+
+
+/*?  Medi  */
+
+@media (max-width: 1200px) {
+  @keyframes favorite {
+    0% {
+      top: 55%;
+      left: 0%;
+    }
+    100% {
+      top: 80%;
+      left: 22%;
+    }
+  }
+}
+@media (max-width: 1200px) {
+  .container-3 {
+    width: 250px;
+  }
+  .forecast-header {
+    margin-top: 10px;
+  }
+  .forecast-temp {
+    top: 60px;
+    right: 10px;
+  }
+  .forecast-city h3 {
+    font-size: 1.2em;
+  }
+  .forecast-temp h2 {
+    font-size: 1.5em;
+  }
+  .forecast-card-result {
+    margin-top: 25px;
+  }
+  .forecast-day {
+    display: flexbox;
+    align-items: center;
+    text-align: center;
+  }
+  .forecast-day div {
+    font-size: 0.6em;
+  }
+  .forecast-day span {
+    font-size: 0.8em;
+  }
+
+  @keyframes container-2 {
+    0% {
+      top: 0%;
+      left: 67%;
+    }
+    100% {
+      top: 80%;
+      left: 60%;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  @keyframes favorite {
+    0% {
+      top: 55%;
+      left: 0%;
+    }
+    100% {
+      top: 80%;
+      left: 5%;
+    }
+  }
 }

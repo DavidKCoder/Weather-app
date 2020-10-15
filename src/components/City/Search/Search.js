@@ -3,11 +3,13 @@ import PropTypes from 'prop-types'
 
 const SearchCity = ({ submit, value, change }) => {
     return (
-        <>
-            <form className="form"  onSubmit={submit}>
-                <input type="text" value={value} placeholder="Enter city" onChange={change} />
-            </form>
-        </>
+        <form className="form" onSubmit={submit}>
+            <input
+                type="text"
+                value={value}
+                placeholder="Enter city"
+                onChange={change} />
+        </form>
     );
 };
 

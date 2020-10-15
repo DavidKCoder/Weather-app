@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import { WeatherData } from '../City/CurrentCity/WeatherData';
-import { StatusData } from '../City/CurrentCity/StatusData';
-
-import Loader from '../Loader/Loader';
-import SearchCity from '../Search/SearchCity';
-import Result from '../Forecast/Result';
-import FavoriteList from '../City/FavoriteCity/FavoriteList';
-import NotFound from '../City/CityNotFound/NotFound';
-
+import { WeatherData } from './components/City/Current/WeatherData';
+import { StatusData } from './components/City/Current/StatusData';
+import Loader from './components/Loader/Loader';
+import SearchCity from './components/City/Search/Search';
+import Result from './components/Forecast/Result';
+import FavoriteName from './components/City/Favorite/FavoriteName';
+import NotFound from './components/City/NotFound/NotFound';
+import { Months, Weekdays } from './helpers/text-arrays';
 
 const REACT_APP_WEATHER_KEY = 'f4e155f7679750eb61e41084eef3aa33';
 
@@ -18,24 +17,24 @@ class App extends Component {
     super(props);
     this.state = {
       status: 'init',
-      isLoaded: false,
+      isCelsius: false,
       isLoader: false,
       weatherData: null,
-      // city: undefined,
       temp: [],
       icon: undefined,
-
       value: '',
       weatherInfo: null,
       error: false
     }
   }
 
-  //-- For abort fetch--\
+  //* For abort fetch
+
   abortController = new AbortController();
   controllerSignal = this.abortController.signal;
 
-  //---- return user coord.
+  //* Return user coord.
+
   weatherInit = () => {
     const success = (position) => {
       this.setState({ status: 'fetching' });
@@ -56,56 +55,54 @@ class App extends Component {
     }
   }
 
+  //* Use OpenWeather API with coord.
 
-  // use OpenWeather API with coord -------------------------------------
   getWeatherData = (lat, lon) => {
 
     const weatherApi = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${REACT_APP_WEATHER_KEY}`;
 
     fetch(weatherApi, { signal: this.controllerSignal })
       .then(response => response.json())
-      .then(
-        (result) => {
-          // console.log(result);
+      .then(result => {
+        const { name } = result;
+        const { country } = result.sys;
+        const { temp, temp_min, temp_max, feels_like, humidity } = result.main;
+        const { description, icon } = result.weather[0];
+        const { speed, deg } = result.wind
 
-          const { name } = result;
-          const { country } = result.sys;
-          const { temp, temp_min, temp_max, feels_like, humidity } = result.main;
-          const { description, icon } = result.weather[0];
-          const { speed, deg } = result.wind
-
-          this.setState({
-            isLoaded: true,
-            status: 'success',
-            weatherData: {
-              name,
-              country,
-              description,
-              icon,
-              tempC: Math.floor(temp.toFixed(1)),
-              tempF: Math.floor((temp * 9 / 5) + 32),
-              feels_like_C: feels_like.toFixed(1),
-              feels_like_F: Math.floor((feels_like * 9 / 5) + 32).toFixed(1),
-              temp_min_C: temp_min.toFixed(1),
-              temp_min_F: Math.floor((temp_min * 9 / 5) + 32).toFixed(1),
-              temp_max_C: temp_max.toFixed(2),
-              temp_max_F: Math.floor((temp_max * 9 / 5) + 32).toFixed(1),
-              speed,
-              deg,
-              humidity
-            }
-          });
-        },
+        this.setState({
+          isCelsius: true,
+          status: 'success',
+          weatherData: {
+            name,
+            country,
+            description,
+            icon,
+            tempC: Math.floor(temp.toFixed(1)),
+            tempF: Math.floor((temp * 9 / 5) + 32),
+            feelsLikeC: feels_like.toFixed(1),
+            feelsLikeF: Math.floor((feels_like * 9 / 5) + 32).toFixed(1),
+            tempMinC: temp_min.toFixed(1),
+            tempMinF: Math.floor((temp_min * 9 / 5) + 32).toFixed(1),
+            tempMaxC: temp_max.toFixed(2),
+            tempMaxF: Math.floor((temp_max * 9 / 5) + 32).toFixed(1),
+            speed,
+            deg,
+            humidity
+          }
+        });
+      },
         (error) => {
           this.setState({
-            isLoaded: true,
+            isCelsius: true,
             error
           });
         }
       );
   }
-  //----------------------------------------------------
-  // --- Current Location receive location---
+
+  //* Current Location receive location
+
   returnActiveView = (status) => {
     switch (status) {
       case 'init':
@@ -121,7 +118,7 @@ class App extends Component {
       case 'success':
         return <WeatherData
           data={this.state.weatherData}
-          isLoaded={this.state.isLoaded}
+          isCelsius={this.state.isCelsius}
           degree={this.degree} />;
       default:
         return <StatusData status={status} />;
@@ -135,11 +132,8 @@ class App extends Component {
   componentDidMount() {
     if (localStorage.getItem('location-allowed')) {
       this.weatherInit();
-    } else {
-      return;
-    }
-    this.setState({
-      isLoaded: true
+    } this.setState({
+      isCelsius: true
     })
   }
 
@@ -147,14 +141,13 @@ class App extends Component {
     this.abortController.abort();
   }
 
-  // ---- change °C to °F ----
+  //* Change °C to °F 
+
   degree = () => {
     this.setState({
-      isLoaded: !this.state.isLoaded,
+      isCelsius: !this.state.isCelsius,
     });
   };
-
-  // ------------------------------------------------
 
   getWeather = () => {
     const { value } = this.state;
@@ -171,23 +164,10 @@ class App extends Component {
         throw Error(res1.statusText, res2.statusText);
       })
       .then(([data1, data2]) => {
-        const months = [
-          'January',
-          'February',
-          'March',
-          'April',
-          'May',
-          'June',
-          'July',
-          'August',
-          'September',
-          'October',
-          'Nocvember',
-          'December',
-        ];
-
-        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const months = Months;
+        const days = Weekdays;
         const currentDate = new Date();
+
         const date = `${days[currentDate.getDay()]} ${currentDate.getDate()} ${
           months[currentDate.getMonth()]
           }`;
@@ -215,12 +195,10 @@ class App extends Component {
           weatherInfo,
           error: false,
         });
-
       })
       .catch(error => {
         console.log(error);
       });
-
   }
 
   componentDidMount() {
@@ -239,31 +217,29 @@ class App extends Component {
     e.preventDefault();
     this.getWeather()
 
-    // this.setState({
-    //   error: true,
-    //   weatherInfo: null,
-    // });
+    this.setState({
+      error: true,
+      weatherInfo: null,
+    });
   };
 
   render() {
     if (!this.state.isLoader) {
       return <Loader msg={'Loading'} />
     }
-
     const { value, weatherInfo, error } = this.state;
 
     return (
-      <div className='App'>
-        <div className='container'>
+      <div className="App">
+        <div className="container">
           <h2>Weather App</h2>
           {this.returnActiveView(this.state.status)}
         </div>
         {this.state.status !== "init" ?
           <div>
             <div>
-              <FavoriteList
+              <FavoriteName
                 value={value}
-                // showResult={(weatherInfo || error) && true}
                 change={this.handleInputChange}
                 submit={this.handleSearchCity}
               />
@@ -274,12 +250,11 @@ class App extends Component {
               <div>
                 <SearchCity
                   value={value}
-                  // showResult={(weatherInfo || error) && true}
                   change={this.handleInputChange}
                   submit={this.handleSearchCity}
                 />
                 <div>
-                  {weatherInfo && <Result weather={weatherInfo} isLoaded={this.state.isLoaded} />}
+                  {weatherInfo && <Result weather={weatherInfo} isCelsius={this.state.isCelsius} />}
                 </div>
                 {error && <NotFound error={error} />}
               </div>
